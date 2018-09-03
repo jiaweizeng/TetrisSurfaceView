@@ -16,12 +16,17 @@ class TetrisSurfaceView @JvmOverloads constructor(
 ) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
 
     private var mBg: Bitmap? = null
-    private var mGameOver: Bitmap? = null
-    private var mPause: Bitmap? = null
+
     private var mPaint: Paint? = null
     private var mIsDraw: Boolean = false
     private var mCanvas: Canvas? = null
 
+    private val  mGameOver by lazy {
+        BitmapFactory.decodeResource(resources, R.mipmap.game_over)
+    }
+    private val mPause by lazy {
+        BitmapFactory.decodeResource(resources, R.mipmap.pause)
+    }
 
     private var mSurfaceWidth =0//分配给surfaceView的宽度
     private var mSurfaceHeight =0//分配给surfaceView的高度
@@ -66,8 +71,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
         mWall = Array(ROWS, { Array<Cell?>(COLS, { null }) })
         BitmapUtil().apply {
             mBg = scaleBitmap(BitmapFactory.decodeResource(resources, R.mipmap.tetris), width, height)
-            mGameOver = scaleBitmap(BitmapFactory.decodeResource(resources, R.mipmap.game_over), width, height)
-            mPause = scaleBitmap(BitmapFactory.decodeResource(resources, R.mipmap.pause), width, height)
+
         }
     }
 
@@ -169,8 +173,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
         cells?.forEachIndexed { index, cell ->
             cell?.apply {
                 val x = (col.plus(ROWS/2-2)) * CELL_SIZE
-//                val x = mSurfaceWidth*3/4
-                val y = (row.plus(2)) * CELL_SIZE
+                val y = row * CELL_SIZE
                 mCanvas?.drawBitmap(image, x.toFloat(), y.toFloat(), mPaint)
             }
         }
@@ -183,7 +186,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
     private fun paintScore() {
         val mGapSize = mSurfaceHeight/10//间隔大小
         var x = (COLS+COLS/3)*CELL_SIZE
-        var y = mSurfaceHeight/4+75
+        var y = mSurfaceHeight/5
         mCanvas?.apply {
             mPaint?.apply {
 //                color = Color.parseColor("#FFFFFFFF")
@@ -213,6 +216,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
 
     /** Tetris 中添加下落动作  */
     fun softDropAction() {
+        if (state!=RUNNING)return
         // 1 如果能够下落就下落
         // 2 如果不能下落 着陆到墙里面
         // 3 销毁已经满的行
@@ -336,6 +340,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
 
     //向左移動
     fun moveLeftAction() {
+        if (state!=RUNNING)return
         tetromino?.moveLeft()
         // coincode: 重合 检查4格方块与墙是否重合
         if (outOfBounds() || coincide()) {
@@ -377,6 +382,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
 
     /** 旋轉方塊方法  */
     fun rotateRightAction() {
+        if (state!=RUNNING)return
         tetromino?.rotateRight()
         if (outOfBounds() || coincide()) {
             tetromino?.rotateLeft()
@@ -385,6 +391,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
 
     /** Tetris 类中添加方法  */
     fun moveRightAction() {
+        if (state!=RUNNING)return
         // 正在下落的方块右移动
         tetromino?.moveRight()
         // 如果(正在下落的方块)超出边界(Bounds)
@@ -396,6 +403,7 @@ class TetrisSurfaceView @JvmOverloads constructor(
 
     /** 硬下落, 一下到底  */
     fun hardDropAction() {
+        if (state!=RUNNING)return
         while (canDrop()) {
             tetromino?.softDrop()
         }

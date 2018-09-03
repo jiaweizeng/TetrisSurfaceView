@@ -24,25 +24,19 @@
             android:layout_height="wrap_content">
 
             <Button
+                style="@style/Btn_style"
                 android:id="@+id/left"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="left"/>
+                android:text="@string/left"/>
 
             <Button
                 android:id="@+id/up"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="up"/>
+                style="@style/Btn_style"
+                android:text="@string/up"/>
 
             <Button
                 android:id="@+id/right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="right"/>
+                style="@style/Btn_style"
+                android:text="@string/right"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,24 +44,18 @@
 
             <Button
                 android:id="@+id/pause"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="pause"/>
+                style="@style/Btn_style"
+                android:text="@string/pause"/>
 
             <Button
                 android:id="@+id/down"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="down"/>
+                style="@style/Btn_style"
+                android:text="@string/down"/>
 
             <Button
                 android:id="@+id/hardDrop"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="hard drop"/>
+                style="@style/Btn_style"
+                android:text="@string/hard_drop"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -38,39 +38,41 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         pause.setOnClickListener(this)
         down.setOnClickListener(this)
         hardDrop.setOnClickListener(this)
-        surfaceView.setTetrisListener(object :TetrisSurfaceView.TetrisListener{
+        surfaceView.setTetrisListener(object : TetrisSurfaceView.TetrisListener {
             override fun gameOver() {
-                pause.text = "once again"
+                pause.text = getString(R.string.once_again)
             }
         })
     }
 
     override fun onClick(v: View?) {
         when (v) {
+
             left -> surfaceView.moveLeftAction()
             up -> surfaceView.rotateRightAction()
             right -> surfaceView.moveRightAction()
             down -> surfaceView.softDropAction()
+            hardDrop -> surfaceView.hardDropAction()
             pause -> {
                 surfaceView.apply {
                     when (state) {
                         RUNNING -> {
                             state = PAUSE
-                            pause.text = "continue"
+                            pause.text = getString(R.string.continue_)
                         }
                         PAUSE -> {
                             state = RUNNING
                             index = 0
-                            pause.text = "pause"
+                            pause.text = getString(R.string.pause)
                         }
-                        GAME_OVER-> {
+                        GAME_OVER -> {
                             onceAgain()
-                            pause.text = "pause"
+                            pause.text = getString(R.string.pause)
                         }
                     }
                 }
             }
-            hardDrop-> surfaceView.hardDropAction()
+
 
         }
     }

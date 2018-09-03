@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BalaTetris</string>
+    <string name="left">left</string>
+    <string name="up">up</string>
+    <string name="right">right</string>
+    <string name="pause">pause</string>
+    <string name="down">down</string>
+    <string name="hard_drop">hard drop</string>
+    <string name="once_again">once again</string>
+    <string name="continue_">continue</string>
 </resources>
